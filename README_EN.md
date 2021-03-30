@@ -28,7 +28,6 @@ Public API: Public information that can be used without a key
 
 Private API: A method of private transaction using a key
 
-
 ## Public API
 
 https://api.knance.com/{version}/{method}
@@ -41,7 +40,7 @@ Parameters
 
 None
 
-Request:
+Request(GET):
 
 https://api.knance.com/v1/public/markets
 
@@ -91,7 +90,7 @@ market	required	a string literal for the market (ex: USDT)
 
 coin	required	a string literal for the coin (ex: BTC)
 
-Request:
+Request(GET):
 
 https://api.knance.com/v1/public/summary/USDT/BTC 
 
@@ -121,7 +120,7 @@ market	required	a string literal for the market (ex: USDT)
 
 coin	required	a string literal for the coin (ex: BTC)
 
-Request:
+Request(GET):
 
 https://api.knance.com/v1/public/ticker/USDT/BTC 
 
@@ -153,7 +152,7 @@ market	required	a string literal for the market (ex: USDT)
 
 coin	required	a string literal for the coin (ex: BTC)
 
-Request:
+Request(GET):
 
 https://api.knance.com/v1/public/orderbook/USDT/BTC 
 
@@ -210,7 +209,7 @@ market	required	a string literal for the market (ex: USDT)
 
 coin	required	a string literal for the coin (ex: BTC)
 
-Request:
+Request(GET):
 
 https://api.knance.com/v1/public/trades/USDT/BTC 
 
@@ -270,7 +269,7 @@ coin	required	a string literal for the coin (ex: BTC)
 
 interval	required	a string literal for the interval (ex: 5)
 
-Request:
+Request(GET):
 
 https://api.knance.com/v1/public/charts/USDT/BTC/5 
 
@@ -332,8 +331,7 @@ Response:
                 }
             ]
         }
-    }
-                        
+    }              
 
 
 ## private API
@@ -365,7 +363,7 @@ parameter	required	description
 
 coin	required	a string literal for the coin (ex: BTC)
 
-Request:
+Request(POST):
 
 https://api.knance.com/v1/account/balance
 
@@ -432,22 +430,21 @@ parameter	required	description
 
 orderid	required	the orderid of the buy or sell order
 
-Request:
+Request(POST):
 
 https://api.knance.com/v1/account/order
 
 Response:
 
     {
-        "success" : true,
-        "message" : "",
-        "result" : {
-            "OrderUuid" : "0cb4c4e4-bdc7-4e13-8c13-430e587d2cc1",
-            "Exchange" : "MC-BTC",
-            "QuantityRemaining" : 1000.00000000,
-            "Price" : 0.00000001,
-            "Opened" : "2018-01-01T07:45:46.27",
-            "IsOpen" : true
+        "result" : true,
+        "data" : {
+            "orderid" : "5fe7e3fa9aa6ea14c7ca9568"
+            "market" : "USDT",
+            "coin" : "BTC",
+            "price" : 1200000,
+            "amount" : 0.01
+            "side" : "buy"
         }
     }
                             
@@ -486,80 +483,7 @@ Response:
         console.log(body);
     });
     
-                                    
-
-
-### /account/trades
-
-Used to retrieve your order history.
-
-Parameters
-
-parameter	required	description
-
-market	required	a string literal for the market (ie. USDT).
-
-coin	required	a string literal for the market (ie. BTC).
-
-Request:
-
-https://api.knance.com/v1/account/trades
-
-Response:
-
-    {
-        "success" : true,
-        "message" : "",
-        "result" : [{
-                "OrderUuid" : "fd97d393-e9b9-4dd1-9dbf-f288fc72a185",
-                "TimeStamp" : "2018-01-01T04:01:00.667",
-                "Price" : 0.00000001,
-                "QuantityRemaining" : 100000.00000000,
-            }, {
-                "OrderUuid" : "17fd64d1-f4bd-4fb6-adb9-42ec68b8697d",
-                "TimeStamp" : "2018-01-01T20:38:58.317",
-                "Price" : 0.00002950,
-                "QuantityRemaining" : 0.00000000,
-            }
-        ]
-    }
-                            
-    'use strict';
-    const request = require('request');
-    const env = require('node-env-file');
-    env(__dirname + '/key.cfg');
-
-    // Dev mode (insecure)
-    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
-
-    const nonce = new Date().getTime();
-    const uri = 'https://api.knance.com/v1/account/order'
-
-    const signature = require("crypto")
-        .createHmac("sha512", process.env.secret)
-        .update(Buffer.from(uri, "utf-8"))
-        .digest("hex");
-
-    const data = {
-        orderid : "5fe7e3fa9aa6ea14c7ca9568"
-    }
-
-    const options = {
-        uri: uri,
-        form: data,
-        headers: {
-        apikey: process.env.key,
-        nonce: nonce,
-        apisign: signature
-        }
-    };
-
-    request.post(options, (err, resp, body) => {
-        if (err) console.log(err);
-        console.log(body);
-    });
-
-                                
+                                               
 
 
 ## Order Api
@@ -572,9 +496,12 @@ Parameters
 
 parameter	required	description
 
-market	required	a string literal for the market (ie. MC-LTC)
+market	required	 a string literal for the market (ex: USDT)
 
-Request:
+coin	required	a string literal for the coin (ex: BTC)
+
+
+Request(POST):
 
 https://api.knance.com/v1/account/openorders 
 
@@ -654,7 +581,7 @@ price	required	the price at which to place the order.
 
 amount	required	the amount to purchase
 
-Request:
+Request(POST):
 
 https://api.knance.com/v1/order/buy
 
@@ -722,7 +649,7 @@ price	required	the price at which to place the order.
 
 amount	required	the amount to purchase
 
-Request:
+Request(POST):
 
 https://api.knance.com/v1/order/sell
 
@@ -787,7 +714,7 @@ parameter	required	description
 
 orderid	required	orderid of buy or sell order
 
-Request:
+Request(POST):
 https://api.knance.com/v1/order/cancel
 
 Response - Returns you the order id:
@@ -795,9 +722,6 @@ Response - Returns you the order id:
     {
         "result": true,
         "data": {
-            "success": true,
-            "result": {
-            "userid": "knance.test@gmail.com",
             "orderid": "605afc00a869844006ad6b51"
             }
         }
