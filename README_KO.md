@@ -438,15 +438,14 @@ https://api.knance.com/v1/account/order
 Response:
 
     {
-        "success" : true,
-        "message" : "",
-        "result" : {
-            "OrderUuid" : "0cb4c4e4-bdc7-4e13-8c13-430e587d2cc1",
-            "Exchange" : "MC-BTC",
-            "QuantityRemaining" : 1000.00000000,
-            "Price" : 0.00000001,
-            "Opened" : "2018-01-01T07:45:46.27",
-            "IsOpen" : true
+        "result" : true,
+        "data" : {
+            "orderid" : "5fe7e3fa9aa6ea14c7ca9568"
+            "market" : "USDT",
+            "coin" : "BTC",
+            "price" : 1200000,
+            "amount" : 0.01
+            "side" : "buy"
         }
     }
                             
