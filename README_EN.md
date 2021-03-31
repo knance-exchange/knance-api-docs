@@ -32,9 +32,9 @@ Private API: A method of private transaction using a key
 
 https://api.knance.com/{version}/{method}
 
-### /public/markets
+### /public/coins
 
-Used to get the available trading markets at exchange.
+Used to get the available trading coins at exchange.
 
 Parameters
 
@@ -42,7 +42,7 @@ None
 
 Request(GET):
 
-https://api.knance.com/v1/public/markets
+https://api.knance.com/v1/public/coins
 
 Response:
    
@@ -77,6 +77,66 @@ Response:
         ]
     }
 
+
+### /public/markets
+
+Used to get the available trading markets at exchange.
+
+Parameters
+
+None
+
+Request(GET):
+
+https://api.knance.com/v1/public/markets
+
+Response:
+   
+    {
+        "result": true,
+        "data": [
+            {
+                "market": "KRW",
+                "coin": "BTC"
+            },
+            {
+                "market": "KRW",
+                "coin": "ETH"
+            },
+            {
+                "market": "KRW",
+                "coin": "USDT"
+            },
+            {
+                "market": "KRW",
+                "coin": "XTC"
+            },
+            {
+                "market": "KRW",
+                "coin": "KRW"
+            },
+            {
+                "market": "USDT",
+                "coin": "BTC"
+            },
+            {
+                "market": "USDT",
+                "coin": "ETH"
+            },
+            {
+                "market": "USDT",
+                "coin": "USDT"
+            },
+            {
+                "market": "USDT",
+                "coin": "XTC"
+            },
+            {
+                "market": "USDT",
+                "coin": "KRW"
+            }
+        ]
+    }
                         
 ### /public/summary/:market/:coin
 
