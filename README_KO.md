@@ -31,9 +31,9 @@ Private API : 키를 사용하여 사용하는 비공개로 거래하는 방식
 
 https://api.knance.com/{version}/{method}
 
-### /public/markets
+### /public/coins
 
-Used to get the available trading markets at exchange.
+Used to get the available trading coins at exchange.
 
 Parameters
 
@@ -41,7 +41,7 @@ None
 
 Request(GET):
 
-https://api.knance.com/v1/public/markets
+https://api.knance.com/v1/public/coins
 
 Response:
    
@@ -72,6 +72,67 @@ Response:
                 "coin": "KRW",
                 "name": "Korean Won",
                 "fee": 1000
+            }
+        ]
+    }
+
+
+### /public/markets
+
+Used to get the available trading markets at exchange.
+
+Parameters
+
+None
+
+Request(GET):
+
+https://api.knance.com/v1/public/markets
+
+Response:
+   
+    {
+        "result": true,
+        "data": [
+            {
+                "market": "KRW",
+                "coin": "BTC"
+            },
+            {
+                "market": "KRW",
+                "coin": "ETH"
+            },
+            {
+                "market": "KRW",
+                "coin": "USDT"
+            },
+            {
+                "market": "KRW",
+                "coin": "XTC"
+            },
+            {
+                "market": "KRW",
+                "coin": "KRW"
+            },
+            {
+                "market": "USDT",
+                "coin": "BTC"
+            },
+            {
+                "market": "USDT",
+                "coin": "ETH"
+            },
+            {
+                "market": "USDT",
+                "coin": "USDT"
+            },
+            {
+                "market": "USDT",
+                "coin": "XTC"
+            },
+            {
+                "market": "USDT",
+                "coin": "KRW"
             }
         ]
     }
